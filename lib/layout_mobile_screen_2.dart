@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'app_data.dart';
 import 'layout_personatge.dart';
+import 'layout_consola.dart';
+import 'layout_joc.dart';
 
 class LayoutMobileScreen2 extends StatefulWidget {
 
@@ -15,11 +17,12 @@ class LayoutMobileScreen2 extends StatefulWidget {
 
 class _StateLayoutMobileScreen2 extends State<LayoutMobileScreen2> {
     _StateLayoutMobileScreen2();
-    // Aquí falta la funció ‘_setBody’ definida a la següent diapositiva
     // Segons la secció, ha de mostrar un layout amb unes dades o altres (layouts amb altres dades)
     Widget _setBody(BuildContext context, dynamic itemData) {
           switch (widget.seccio) {
                 case 'Personatges': return LayoutPersonatge(itemData: itemData);
+                case "Consoles": return LayoutConsoles(itemData: itemData);
+                case "Jocs": return LayoutJocs(itemData: itemData);
           }
           return Text('Unknown layout: ${widget.seccio}');
     }
