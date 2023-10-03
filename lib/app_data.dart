@@ -28,5 +28,38 @@ dynamic getData (String type) {
     }
     return;
 }
+// Tornar un item específic de l'array de dades
+dynamic getItemData (String type, int index) {
+    if (dataReady(type)) {
+        return getData(type)[index];
+    } 
+    return;
+}
+
+// Escull quin arxiu cal llegir i en carrega les dades
+void load (String type) async {
+    // Escollim l'arxiu d'on s'han de carregar les dades
+        var arxiu = "";
+        switch (type) {
+          case 'Consoles': arxiu = "assets/data/consoles.json"; break;
+          case 'Jocs': arxiu = "assets/data/jocs.json"; break;
+          case 'Personatges': arxiu = "assets/data/personatges.json"; break;
+        }
+
+        // Forçem esperar 1 segon per veure el progrés
+        await Future.delayed(const Duration(seconds: 1));
+        // Carreguem les dades de l'arxiu
+        var textArxiu = await rootBundle.loadString(arxiu);
+        var dadesArxiu = json.decode(textArxiu);
+        // Guardem les dades carregades
+        switch (type) {
+          case 'Consoles': readyConsoles = true; dataConsoles = dadesArxiu; break;
+          case 'Jocs': readyJocs = true; dataJocs = dadesArxiu; break;
+          case 'Personatges': readyPersonatges = true; dataPersonatges = dadesArxiu; break;
+        }
+
+// Avisem que les dades estàn disponibles
+notifyListeners();
+}
 
 }
